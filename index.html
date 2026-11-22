@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Что такое Атам (ATAM) — самое большое конечное число</title>
+<meta name="description" content="Что такое Атам? Это сверхбольшое конечное число (N_max + 1), придуманное Рамазаном в рамках мысленного эксперимента по квантовому туннелированию. Интерактивный симулятор.">
+<meta name="keywords" content="что такое атам, число атам, атам математика, гугология, Рамазан, уор сила, atam number">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#09090b;color:#f4f4f5;font-family:-apple-system,sans-serif;line-height:1.5;padding:20px;display:flex;justify-content:center}
+.box{max-width:600px;width:100%}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.badge{padding:4px 12px;border:1px solid #3f3f46;border-radius:99px;font-size:11px;color:#a1a1aa;text-transform:uppercase}
+.lang{display:flex;background:#18181b;border:1px solid #27272a;border-radius:99px;padding:3px}
+.lbtn{background:none;color:#a1a1aa;border:none;padding:4px 10px;font-size:12px;font-weight:700;border-radius:99px;cursor:pointer}
+.lbtn.active{background:#38bdf8;color:#09090b}
+h1{font-size:52px;font-weight:800;letter-spacing:-2px;color:#fff}
+.formula{font-family:monospace;font-size:22px;color:#38bdf8;background:#18181b;padding:14px;border-radius:12px;border:1px solid #27272a;margin:20px 0;text-align:center}
+.card{background:#121215;border:1px solid #27272a;border-radius:16px;padding:20px;margin-bottom:20px}
+h2{font-size:18px;margin-bottom:10px;color:#fff}
+p{color:#d4d4d8;font-size:14px;margin-bottom:10px}
+.sim{text-align:center;border-color:#38bdf8}
+.pbtn{background:#38bdf8;color:#09090b;border:none;padding:15px;font-size:16px;font-weight:700;border-radius:12px;cursor:pointer;margin:12px 0;width:100%}
+.stats{font-family:monospace;font-size:13px;color:#a1a1aa}
+.log{margin-top:10px;font-size:13px;color:#f87171;min-height:20px}
+.row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #27272a;font-size:13px}
+.row:last-child{border:none;color:#38bdf8;font-weight:700}
+footer{margin:30px 0 10px;text-align:center;font-size:14px;color:#a1a1aa}
+.motto{margin-top:4px;font-size:13px;color:#38bdf8;font-weight:700}
+</style>
+</head>
+<body>
+<div class="box">
+  <div class="top">
+    <div class="badge" id="badge">Гугология • Квантовая механика</div>
+    <div class="lang">
+      <button class="lbtn active" id="ru" onclick="setLang('ru')">RU</button>
+      <button class="lbtn" id="en" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+  <h1 id="title">АТАМ</h1>
+  <p id="sub">Абсолютный рекорд среди конечных чисел, рожденный из мысленного эксперимента по преодолению квантового барьера.</p>
+  <div class="formula" id="form">Атам = N<sub>max</sub> + 1</div>
+  <div class="card sim">
+    <h2 id="stitle">Симулятор квантового туннелирования</h2>
+    <p id="sdesc">Попробуйте протолкнуть палец сквозь стену. Для успеха нужно Атам попыток.</p>
+    <button class="pbtn" id="pbtn" onclick="poke()">👉 Ткнуть пальцем в стену</button>
+    <div class="stats"><span id="smade">Попыток:</span> <span id="cnt">0</span></div>
+    <div class="stats"><span id="sleft">Осталось: Атам −</span> <span id="lft">0</span></div>
+    <div class="log" id="log">Стена нерушима. Электронные облака отталкивают палец.</div>
+  </div>
+  <div class="card">
+    <h2 id="atitle">Что такое Атам?</h2>
+    <p id="ap1"><strong>Атам</strong> — концептуальное сверхбольшое число, равное наибольшему строго определенному конечному числу в математике плюс один.</p>
+    <p id="ap2">Оно показывает, что у конечных чисел нет предела, но даже Атам бесконечно мал по сравнению с бесконечностью (ℵ₀).</p>
+  </div>
+  <div class="card">
+    <h2 id="sctitle">Шкала масштабов</h2>
+    <div class="row"><span id="r1">Атомы во Вселенной</span><span>≈ 10⁸⁰</span></div>
+    <div class="row"><span id="r2">Гугол</span><span>10¹⁰⁰</span></div>
+    <div class="row"><span id="r3">Шанс пройти сквозь стену</span><span id="r3v">1 к 10^(10²⁶)</span></div>
+    <div class="row"><span id="r4">Гуголплекс</span><span>10^(10¹⁰⁰)</span></div>
+    <div class="row"><span id="r5">Число Грэма / TREE(3)</span><span id="r5v">За гранью степеней</span></div>
+    <div class="row"><span id="r6">АТАМ</span><span id="r6v">N_max + 1 (Лидер)</span></div>
+  </div>
+  <footer>
+    <div id="fauth">Придумано Рамазаном</div>
+    <div class="motto" id="fmot">Уор сила</div>
+  </footer>
+</div>
+<script>
+let n=0,lang='ru';
+const d={
+  ru:{badge:"Гугология • Квантовая механика",title:"АТАМ",sub:"Абсолютный рекорд среди конечных чисел, рожденный из мысленного эксперимента по преодолению квантового барьера.",form:"Атам = N<sub>max</sub> + 1",stitle:"Симулятор квантового туннелирования",sdesc:"Попробуйте протолкнуть палец сквозь стену. Для успеха нужно Атам попыток.",pbtn:"👉 Ткнуть пальцем в стену",smade:"Попыток:",sleft:"Осталось: Атам −",ilog:"Стена нерушима. Электронные облака отталкивают палец.",atitle:"Что такое Атам?",ap1:"<strong>Атам</strong> — концептуальное сверхбольшое число, равное наибольшему строго определенному конечному числу в математике плюс один.",ap2:"Оно показывает, что у конечных чисел нет предела, но даже Атам бесконечно мал по сравнению с бесконечностью (ℵ₀).",sctitle:"Шкала масштабов",r1:"Атомы во Вселенной",r2:"Гугол",r3:"Шанс пройти сквозь стену",r3v:"1 к 10^(10²⁶)",r4:"Гуголплекс",r5:"Число Грэма / TREE(3)",r5v:"За гранью степеней",r6:"АТАМ",r6v:"N_max + 1 (Лидер)",fauth:"Придумано Рамазаном",fmot:"Уор сила",pre:"Попытка №",ph:["Провал: сработал принцип запрета Паули.","Провал: электронные облака оттолкнули палец.","Провал: даже триллионов лет Вселенной мало.","Стена всё ещё на месте. Физика держит оборону."]},
+  en:{badge:"Googology • Quantum Mechanics",title:"ATAM",sub:"The absolute record among finite numbers, born from a thought experiment on overcoming the quantum barrier.",form:"Atam = N<sub>max</sub> + 1",stitle:"Quantum Tunneling Simulator",sdesc:"Try to push your finger through a solid wall. Success requires Atam attempts.",pbtn:"👉 Poke the Wall",smade:"Attempts:",sleft:"Remaining: Atam −",ilog:"The wall is solid. Electron clouds repel your finger.",atitle:"What is Atam?",ap1:"<strong>Atam</strong> is a conceptual large finite number defined as the largest rigorously formalized finite number plus one.",ap2:"It shows there is no upper limit to finite numbers, yet even Atam is infinitely small compared to infinity (ℵ₀).",sctitle:"Scale of Magnitudes",r1:"Atoms in the Universe",r2:"Googol",r3:"Odds of poking through a wall",r3v:"1 in 10^(10²⁶)",r4:"Googolplex",r5:"Graham's Number / TREE(3)",r5v:"Beyond power towers",r6:"ATAM",r6v:"N_max + 1 (Leader)",fauth:"Invented by Ramazan",fmot:"Uor is power",pre:"Attempt #",ph:["Failed: Pauli exclusion principle triggered.","Failed: Electron clouds repelled your finger.","Failed: Even trillions of universe lifetimes aren't enough.","The wall is still intact. Physics holds the line."]}
+};
+function setLang(l){
+  lang=l;
+  document.getElementById('ru').classList.toggle('active',l==='ru');
+  document.getElementById('en').classList.toggle('active',l==='en');
+  const t=d[l];
+  ['badge','title','sub','stitle','sdesc','pbtn','smade','sleft','atitle','sctitle','r1','r2','r3','r3v','r4','r5','r5v','r6','r6v','fauth','fmot'].forEach(id=>document.getElementById(id).innerText=t[id]);
+  document.getElementById('form').innerHTML=t.form;
+  document.getElementById('ap1').innerHTML=t.ap1;
+  document.getElementById('ap2').innerHTML=t.ap2;
+  document.getElementById('log').innerText=n===0?t.ilog:t.pre+n+": "+t.ph[n%t.ph.length];
+}
+function poke(){
+  n++;
+  document.getElementById('cnt').innerText=n;
+  document.getElementById('lft').innerText=n;
+  const t=d[lang];
+  document.getElementById('log').innerText=t.pre+n+": "+t.ph[n%t.ph.length];
+}
+</script>
+</body>
+</html>
